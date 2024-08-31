@@ -1,18 +1,32 @@
-name: Commit Listener
+name: CI Pipeline
 
+# Trigger the workflow on push or pull request events
 on:
   push:
     branches:
-      - master    # Trigger on commits to the 'main' branch
+      - main  # Or master, depending on your default branch
+  pull_request:
+    branches:
+      - main  # Or master
 
 jobs:
-  notify:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Send notification
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"New commit pushed to the main branch!"}' https://hooks.slack.com/services/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
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Specify your project's Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
