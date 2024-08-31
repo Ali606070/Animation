@@ -15,4 +15,4 @@ jobs:
 
       - name: Send notification
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"New commit pushed to the main branch!"}' https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New commit pushed to the main branch!"}' https://hooks.slack.com/services/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
